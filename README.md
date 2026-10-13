@@ -9,7 +9,7 @@ Personal study by **Vitor Sato** — Power BI & data analysis.
 
 ## Why this project
 
-In October 2026 a post went viral about a person with no astronomy background who found an exoplanet candidate using an AI coding assistant on public data from NASA's TESS telescope. I wanted to know how far a data analyst gets with the same open data, and where it goes wrong.
+In October 2026 a post went viral: someone used Claude Code on public data from NASA's TESS telescope and found a planet candidate not reported in any catalog (a 0.05% dip every 3.18 days, with 74 analyses trying to prove it was not a planet). I wanted to know how far a data analyst gets with the same open data, and where it goes wrong.
 
 The questions:
 
