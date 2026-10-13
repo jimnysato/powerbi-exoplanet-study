@@ -1,0 +1,6 @@
+/// Pasta onde estão os CSVs gerados por dados/gerar_dados.py
+expression CaminhoDados = "C:\Users\Vitor\.claude\freelance\portfolio\estudo-exoplanetas\dados\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 5866d362-5be9-586a-8c2f-9b329a476e83
+
+	annotation PBI_ResultType = Text
+

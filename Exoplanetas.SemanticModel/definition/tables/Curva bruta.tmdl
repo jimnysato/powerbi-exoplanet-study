@@ -1,0 +1,79 @@
+/// Brilho da estrela ao longo do tempo (médias de 10 min; defeitos ponto a ponto).
+table 'Curva bruta'
+	lineageTag: 54b26463-8909-58cc-90d4-c52c19d992ef
+
+	measure 'Dia (eixo)' = AVERAGE ( 'Curva bruta'[Dia] )
+		formatString: 0.0
+		lineageTag: 92e4a26f-d0ae-5247-82ee-39bc668aaa32
+
+	measure 'Brilho bruto' = AVERAGE ( 'Curva bruta'[Brilho] )
+		formatString: 0.000
+		lineageTag: d3546dc8-22da-53db-a4e2-362e76951f06
+
+	measure 'Cor do ponto bruto' = IF ( SELECTEDVALUE ( 'Curva bruta'[Defeito] ) = TRUE (), "#F87171", "#4FD1C5" )
+		displayFolder: Cores
+		lineageTag: 7e0ca1dc-68ba-5ac8-9fb9-a4b102ccf8bf
+
+	column estrela_id
+		dataType: int64
+		formatString: 0
+		isHidden
+		lineageTag: 4b7b52e1-8ba6-5124-975b-8f46efaf8277
+		summarizeBy: none
+		sourceColumn: estrela_id
+
+	column Dia
+		dataType: double
+		formatString: 0.0
+		lineageTag: a74cd201-6f6e-5f39-9b6d-22c140af36d4
+		summarizeBy: none
+		sourceColumn: Dia
+
+	column Brilho
+		dataType: double
+		formatString: 0.000
+		lineageTag: 38aedc82-8471-5fe9-b18e-36abacbda347
+		summarizeBy: none
+		sourceColumn: Brilho
+
+	column Defeito
+		dataType: boolean
+		isHidden
+		lineageTag: f2c60e37-f13f-5a1f-89a4-b2aaabcf61db
+		summarizeBy: none
+		sourceColumn: Defeito
+
+	column Ponto
+		dataType: int64
+		formatString: 0
+		lineageTag: 0d463ce6-5bb7-5b03-b937-f14c65a8b061
+		summarizeBy: none
+		sourceColumn: Ponto
+
+	column Qualidade
+		dataType: string
+		lineageTag: 57c0949a-eca0-51a7-8de9-6b8ab40ec2dd
+		summarizeBy: none
+		sourceColumn: Qualidade
+
+	column 'Qualidade (EN)'
+		dataType: string
+		lineageTag: 196e8e99-052b-5d2a-a6ff-c85aa0e64a0f
+		summarizeBy: none
+		sourceColumn: Qualidade (EN)
+
+	partition 'Curva bruta' = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(CaminhoDados & "curva_bruta.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Cabecalhos = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    Nomes = Table.RenameColumns(Cabecalhos, {{"dia", "Dia"}, {"brilho", "Brilho"}, {"defeito", "Defeito"}}),
+				    Tipos = Table.TransformColumnTypes(Nomes, {{"estrela_id", Int64.Type}, {"Dia", type number}, {"Brilho", type number}, {"Defeito", type logical}}, "en-US"),
+				    Indice = Table.AddIndexColumn(Tipos, "Ponto", 1, 1, Int64.Type),
+				    Qualidade = Table.AddColumn(Indice, "Qualidade", each if [Defeito] then "Defeito do telescópio" else "Ponto bom", type text),
+				    QualidadeEN = Table.AddColumn(Qualidade, "Qualidade (EN)", each if [Defeito] then "Telescope glitch" else "Good point", type text)
+				in
+				    QualidadeEN
+
+	annotation PBI_ResultType = Table

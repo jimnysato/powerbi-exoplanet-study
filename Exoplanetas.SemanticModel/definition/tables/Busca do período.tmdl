@@ -1,0 +1,52 @@
+/// Força do sinal para cada período testado (Box Least Squares), antes e depois da limpeza.
+table 'Busca do período'
+	lineageTag: f45bb96c-35f0-5a07-bb01-02e97ae4f4de
+
+	measure 'Força 1ª rodada' = CALCULATE ( MAX ( 'Busca do período'[Força do sinal] ), KEEPFILTERS ( 'Busca do período'[Rodada] = "1ª rodada (sem limpeza)" ) )
+		formatString: 0.00
+		lineageTag: ef100511-3c82-5aeb-8bbe-6f764d807005
+
+	measure 'Força final' = CALCULATE ( MAX ( 'Busca do período'[Força do sinal] ), KEEPFILTERS ( 'Busca do período'[Rodada] = "Final (com limpeza)" ) )
+		formatString: 0.00
+		lineageTag: 2a18158f-2660-55ee-b957-b6b365da3827
+
+	column estrela_id
+		dataType: int64
+		formatString: 0
+		isHidden
+		lineageTag: 5b9084c9-ed1d-5df4-8f44-b6d8e9b7b5fc
+		summarizeBy: none
+		sourceColumn: estrela_id
+
+	column Rodada
+		dataType: string
+		lineageTag: 2dc0b089-dec9-5916-84b9-6287c12e4e8e
+		summarizeBy: none
+		sourceColumn: Rodada
+
+	column 'Período testado (dias)'
+		dataType: double
+		formatString: 0.00
+		lineageTag: 6414865f-31f4-5fdc-a6df-b08de194dfe5
+		summarizeBy: none
+		sourceColumn: Período testado (dias)
+
+	column 'Força do sinal'
+		dataType: double
+		formatString: 0.00
+		lineageTag: e290db2b-372e-5dac-b6a8-f4696d93f213
+		summarizeBy: none
+		sourceColumn: Força do sinal
+
+	partition 'Busca do período' = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(CaminhoDados & "busca_periodo.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Cabecalhos = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    Nomes = Table.RenameColumns(Cabecalhos, {{"rodada", "Rodada"}, {"periodo_dias", "Período testado (dias)"}, {"potencia_rel", "Força do sinal"}}),
+				    Tipos = Table.TransformColumnTypes(Nomes, {{"estrela_id", Int64.Type}, {"Rodada", type text}, {"Período testado (dias)", type number}, {"Força do sinal", type number}}, "en-US")
+				in
+				    Tipos
+
+	annotation PBI_ResultType = Table

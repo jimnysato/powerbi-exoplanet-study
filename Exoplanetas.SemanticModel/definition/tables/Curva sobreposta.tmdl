@@ -1,0 +1,71 @@
+/// Todas as passagens do planeta sobrepostas no período achado, em horas a partir do meio da passagem.
+table 'Curva sobreposta'
+	lineageTag: e63f09fe-5b54-5e06-aad7-cdd74ccfdb27
+
+	measure 'Horas (eixo)' = AVERAGE ( 'Curva sobreposta'[Horas do meio da passagem] )
+		formatString: 0.0
+		lineageTag: 4b53837c-281b-5854-b6c3-851897007cae
+
+	measure 'Brilho sobreposto' = AVERAGE ( 'Curva sobreposta'[Brilho] )
+		formatString: 0.000
+		lineageTag: 4979965b-de20-524e-b61d-2cb4c86c976a
+
+	measure 'Cor do ponto sobreposto' = IF ( SELECTEDVALUE ( 'Curva sobreposta'[Tipo] ) = "Medição", "#4A6A90", "#4FD1C5" )
+		displayFolder: Cores
+		lineageTag: eab38832-c1ad-5e4b-baae-316dddde3cb0
+
+	column estrela_id
+		dataType: int64
+		formatString: 0
+		isHidden
+		lineageTag: 602c4ac9-1aca-57f3-b9a8-9f39eabc93ca
+		summarizeBy: none
+		sourceColumn: estrela_id
+
+	column Tipo
+		dataType: string
+		lineageTag: c86e9c54-f093-54cd-b7e7-e0fafe69e9fc
+		summarizeBy: none
+		sourceColumn: Tipo
+
+	column 'Horas do meio da passagem'
+		dataType: double
+		formatString: 0.0
+		lineageTag: 42667d28-e2ee-5fd9-88fc-0e4b5b2c58b5
+		summarizeBy: none
+		sourceColumn: Horas do meio da passagem
+
+	column Brilho
+		dataType: double
+		formatString: 0.000
+		lineageTag: 96cc3b7f-07b7-523a-baaa-a8544750e473
+		summarizeBy: none
+		sourceColumn: Brilho
+
+	column Ponto
+		dataType: int64
+		formatString: 0
+		lineageTag: 3ee858fa-1cfe-5622-b16a-3c2ac34af087
+		summarizeBy: none
+		sourceColumn: Ponto
+
+	column 'Tipo (EN)'
+		dataType: string
+		lineageTag: 381556a9-e6ca-51ce-ba2d-2e7925ec9be1
+		summarizeBy: none
+		sourceColumn: Tipo (EN)
+
+	partition 'Curva sobreposta' = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(CaminhoDados & "curva_sobreposta.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Cabecalhos = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    Nomes = Table.RenameColumns(Cabecalhos, {{"tipo", "Tipo"}, {"horas", "Horas do meio da passagem"}, {"brilho", "Brilho"}}),
+				    Tipos = Table.TransformColumnTypes(Nomes, {{"estrela_id", Int64.Type}, {"Tipo", type text}, {"Horas do meio da passagem", type number}, {"Brilho", type number}}, "en-US"),
+				    Indice = Table.AddIndexColumn(Tipos, "Ponto", 1, 1, Int64.Type),
+				    TipoEN = Table.AddColumn(Indice, "Tipo (EN)", each if [Tipo] = "Medição" then "Measurement" else "Average every ~15 min", type text)
+				in
+				    TipoEN
+
+	annotation PBI_ResultType = Table

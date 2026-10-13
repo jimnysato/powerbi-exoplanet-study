@@ -1,0 +1,223 @@
+/// Uma linha por estrela testada: o que o teste achou e o valor oficial da NASA.
+table Estrelas
+	lineageTag: 7ca94ac8-f588-5587-b142-14fdb4a81a6f
+
+	measure 'Estrelas testadas' = COUNTROWS ( Estrelas )
+		formatString: 0
+		displayFolder: Resultado
+		lineageTag: 1275b2ee-701f-5901-ba4d-88414cfc6fd9
+
+	measure 'Períodos que batem' = COUNTROWS ( FILTER ( Estrelas, DIVIDE ( ABS ( Estrelas[Período achado (dias)] - Estrelas[Período NASA (dias)] ), Estrelas[Período NASA (dias)] ) < 0.01 ) )
+		formatString: 0
+		displayFolder: Resultado
+		lineageTag: d1514c76-cdb8-5089-ab57-90763a89ff8c
+
+	measure 'Períodos que batem (texto)' = FORMAT ( [Períodos que batem], "0" ) & " de " & FORMAT ( [Estrelas testadas], "0" )
+		displayFolder: Resultado
+		lineageTag: deae5372-6fa0-5782-afda-924ae68e4fc7
+
+	measure 'Períodos que batem (texto EN)' = FORMAT ( [Períodos que batem], "0" ) & " of " & FORMAT ( [Estrelas testadas], "0" )
+		displayFolder: Resultado
+		lineageTag: a7b26fd9-1c72-5aea-8df5-844860046d28
+
+	measure 'Diferença no período (min)' = SUMX ( Estrelas, ABS ( Estrelas[Período achado (dias)] - Estrelas[Período NASA (dias)] ) ) * 24 * 60
+		formatString: 0.0
+		displayFolder: Resultado
+		lineageTag: 8500fe9d-5b56-56b5-8b02-3511b15bcbeb
+
+	measure 'Maior diferença no período (min)' = MAXX ( Estrelas, ABS ( Estrelas[Período achado (dias)] - Estrelas[Período NASA (dias)] ) ) * 24 * 60
+		formatString: 0
+		displayFolder: Resultado
+		lineageTag: 9141eef4-c6cf-5cce-8f7a-c44448777cf0
+
+	measure 'Período achado' = AVERAGE ( Estrelas[Período achado (dias)] )
+		formatString: 0.0000
+		displayFolder: Resultado
+		lineageTag: 572e5b2f-e904-5b26-8d0f-910ed4e8b812
+
+	measure 'Período NASA' = AVERAGE ( Estrelas[Período NASA (dias)] )
+		formatString: 0.0000
+		displayFolder: Resultado
+		lineageTag: 9566e692-beb4-59b1-b042-83bfca9030a6
+
+	measure 'Duração achada' = AVERAGE ( Estrelas[Duração achada (h)] )
+		formatString: 0.0
+		displayFolder: Resultado
+		lineageTag: c392b1ae-d3e0-5454-b14c-6e650d8f30fa
+
+	measure 'Queda achada' = AVERAGE ( Estrelas[Queda achada (ppm)] ) / 1000000
+		formatString: 0.00%
+		displayFolder: Resultado
+		lineageTag: 7ce0ffa4-09e9-5dab-b058-6150d46abbb9
+
+	measure 'Queda NASA' = AVERAGE ( Estrelas[Queda NASA (ppm)] ) / 1000000
+		formatString: 0.00%
+		displayFolder: Resultado
+		lineageTag: c88b68cb-670c-559e-bf03-017b6542f54d
+
+	measure 'Menor queda achada' = MIN ( Estrelas[Queda achada (ppm)] ) / 1000000
+		formatString: 0.00%
+		displayFolder: Resultado
+		lineageTag: d0d41457-dc44-571c-8eb1-fe8991389aee
+
+	measure 'Sinal/ruído médio' = AVERAGE ( Estrelas[Sinal/ruído] )
+		formatString: 0
+		displayFolder: Resultado
+		lineageTag: a1620f7a-5bb4-513d-ab0d-279cdf5638f7
+
+	measure 'Período 1ª rodada' = AVERAGE ( Estrelas[Período 1ª rodada (dias)] )
+		formatString: 0.00
+		displayFolder: Primeira rodada
+		lineageTag: b67f2f59-b035-59e8-8f0b-255585ee06b3
+
+	measure 'Queda 1ª rodada' = AVERAGE ( Estrelas[Queda 1ª rodada (ppm)] ) / 1000000
+		formatString: 0.00%
+		displayFolder: Primeira rodada
+		lineageTag: 0937572a-6084-5b42-9d15-e60ed64e6edd
+
+	measure 'Pontos com defeito (%)' = DIVIDE ( SUM ( Estrelas[Pontos com defeito] ), SUM ( Estrelas[Pontos medidos] ) )
+		formatString: 0.0%
+		displayFolder: Primeira rodada
+		lineageTag: 31d887d8-f306-5d1d-9590-15abf6672b93
+
+	column estrela_id
+		dataType: int64
+		formatString: 0
+		isHidden
+		lineageTag: 13a7e470-7b9b-59bf-8822-3c3e28e2a9cc
+		summarizeBy: none
+		sourceColumn: estrela_id
+
+	column Estrela
+		dataType: string
+		lineageTag: 7986a2a4-eefa-5aff-b96c-b1314f1d58d6
+		summarizeBy: none
+		sourceColumn: Estrela
+
+	column 'Alvo no arquivo da NASA'
+		dataType: string
+		lineageTag: a79f41aa-a3ae-5fb2-b859-ca8810b60595
+		summarizeBy: none
+		sourceColumn: Alvo no arquivo da NASA
+
+	column 'Status NASA'
+		dataType: string
+		lineageTag: 53daf895-320e-58be-9c8b-353a36fe71c3
+		summarizeBy: none
+		sourceColumn: Status NASA
+
+	column 'Fonte dos dados'
+		dataType: string
+		lineageTag: 141bd5df-1d62-5fc2-a2b7-64f590a4edef
+		summarizeBy: none
+		sourceColumn: Fonte dos dados
+
+	column 'Setores TESS'
+		dataType: string
+		lineageTag: 0e47829b-c08f-5953-a5ff-777f56054b31
+		summarizeBy: none
+		sourceColumn: Setores TESS
+
+	column 'Dias observados'
+		dataType: double
+		formatString: 0.0
+		lineageTag: 70605b4a-29ce-519b-9894-d86969bf561e
+		summarizeBy: none
+		sourceColumn: Dias observados
+
+	column 'Pontos medidos'
+		dataType: int64
+		formatString: #,0
+		lineageTag: feee1771-8159-59af-91eb-26aeee684a87
+		summarizeBy: none
+		sourceColumn: Pontos medidos
+
+	column 'Pontos com defeito'
+		dataType: int64
+		formatString: #,0
+		lineageTag: 37f02624-3ce2-576a-8e34-26dd6996ed80
+		summarizeBy: none
+		sourceColumn: Pontos com defeito
+
+	column 'Período 1ª rodada (dias)'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 01523f81-f2de-5cac-906d-5d6723218476
+		summarizeBy: none
+		sourceColumn: Período 1ª rodada (dias)
+
+	column 'Queda 1ª rodada (ppm)'
+		dataType: double
+		formatString: #,0
+		lineageTag: c0706bea-80cb-5d9e-971a-c054325d6158
+		summarizeBy: none
+		sourceColumn: Queda 1ª rodada (ppm)
+
+	column 'Período achado (dias)'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 71448af8-4c08-549b-a4b9-9bf76ad2a8ff
+		summarizeBy: none
+		sourceColumn: Período achado (dias)
+
+	column 'Período NASA (dias)'
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 986f7679-b7e3-5952-8ddd-83f01b4b23e1
+		summarizeBy: none
+		sourceColumn: Período NASA (dias)
+
+	column 'Duração achada (h)'
+		dataType: double
+		formatString: 0.0
+		lineageTag: 194761de-bdc8-55c7-a365-7957b3e84c16
+		summarizeBy: none
+		sourceColumn: Duração achada (h)
+
+	column 'Duração NASA (h)'
+		dataType: double
+		formatString: 0.0
+		lineageTag: cd2845af-db52-5413-a41f-768cc5a5f3a3
+		summarizeBy: none
+		sourceColumn: Duração NASA (h)
+
+	column 'Queda achada (ppm)'
+		dataType: double
+		formatString: #,0
+		lineageTag: 054016a8-dc73-5a13-bdd9-87440f577df9
+		summarizeBy: none
+		sourceColumn: Queda achada (ppm)
+
+	column 'Queda NASA (ppm)'
+		dataType: double
+		formatString: #,0
+		lineageTag: 13608d96-8101-5c47-9b17-173dcb4004a0
+		summarizeBy: none
+		sourceColumn: Queda NASA (ppm)
+
+	column 'Sinal/ruído'
+		dataType: double
+		formatString: 0.0
+		lineageTag: c8bc0b7c-1062-502a-a288-3882bd02dc91
+		summarizeBy: none
+		sourceColumn: Sinal/ruído
+
+	column 'Status NASA (EN)'
+		dataType: string
+		lineageTag: 447faeaf-ef0b-5d4e-a8bd-490a6c31ec58
+		summarizeBy: none
+		sourceColumn: Status NASA (EN)
+
+	partition Estrelas = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(CaminhoDados & "estrelas.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Cabecalhos = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    Nomes = Table.RenameColumns(Cabecalhos, {{"estrela", "Estrela"}, {"alvo_mast", "Alvo no arquivo da NASA"}, {"status_nasa", "Status NASA"}, {"fonte_dados", "Fonte dos dados"}, {"setores", "Setores TESS"}, {"dias_observados", "Dias observados"}, {"pontos", "Pontos medidos"}, {"pontos_defeito", "Pontos com defeito"}, {"periodo_1a_rodada_dias", "Período 1ª rodada (dias)"}, {"queda_1a_rodada_ppm", "Queda 1ª rodada (ppm)"}, {"periodo_achado_dias", "Período achado (dias)"}, {"periodo_nasa_dias", "Período NASA (dias)"}, {"duracao_achada_h", "Duração achada (h)"}, {"duracao_nasa_h", "Duração NASA (h)"}, {"queda_achada_ppm", "Queda achada (ppm)"}, {"queda_nasa_ppm", "Queda NASA (ppm)"}, {"sinal_ruido", "Sinal/ruído"}}),
+				    Tipos = Table.TransformColumnTypes(Nomes, {{"estrela_id", Int64.Type}, {"Estrela", type text}, {"Alvo no arquivo da NASA", type text}, {"Status NASA", type text}, {"Fonte dos dados", type text}, {"Setores TESS", type text}, {"Dias observados", type number}, {"Pontos medidos", Int64.Type}, {"Pontos com defeito", Int64.Type}, {"Período 1ª rodada (dias)", type number}, {"Queda 1ª rodada (ppm)", type number}, {"Período achado (dias)", type number}, {"Período NASA (dias)", type number}, {"Duração achada (h)", type number}, {"Duração NASA (h)", type number}, {"Queda achada (ppm)", type number}, {"Queda NASA (ppm)", type number}, {"Sinal/ruído", type number}}, "en-US"),
+				    StatusEN = Table.AddColumn(Tipos, "Status NASA (EN)", each if [Status NASA] = "Confirmado" then "Confirmed" else "Candidate", type text)
+				in
+				    StatusEN
+
+	annotation PBI_ResultType = Table

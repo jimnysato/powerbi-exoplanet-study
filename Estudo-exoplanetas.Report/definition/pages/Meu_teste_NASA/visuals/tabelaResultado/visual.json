@@ -1,0 +1,219 @@
+{
+  "name": "tabelaResultado",
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "queryRef": "Estrelas.Estrela",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Estrelas"
+                    }
+                  },
+                  "Property": "Estrela"
+                }
+              },
+              "nativeQueryRef": "Estrela"
+            },
+            {
+              "queryRef": "Estrelas.Status NASA",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Estrelas"
+                    }
+                  },
+                  "Property": "Status NASA"
+                }
+              },
+              "nativeQueryRef": "Status NASA"
+            },
+            {
+              "queryRef": "Estrelas.Período achado",
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Estrelas"
+                    }
+                  },
+                  "Property": "Período achado"
+                }
+              },
+              "nativeQueryRef": "Período achado"
+            },
+            {
+              "queryRef": "Estrelas.Período NASA",
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Estrelas"
+                    }
+                  },
+                  "Property": "Período NASA"
+                }
+              },
+              "nativeQueryRef": "Período NASA"
+            },
+            {
+              "queryRef": "Estrelas.Diferença no período (min)",
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Estrelas"
+                    }
+                  },
+                  "Property": "Diferença no período (min)"
+                }
+              },
+              "nativeQueryRef": "Diferença no período (min)",
+              "displayName": "Dif. (min)"
+            },
+            {
+              "queryRef": "Estrelas.Queda achada",
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Estrelas"
+                    }
+                  },
+                  "Property": "Queda achada"
+                }
+              },
+              "nativeQueryRef": "Queda achada"
+            },
+            {
+              "queryRef": "Estrelas.Queda NASA",
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Estrelas"
+                    }
+                  },
+                  "Property": "Queda NASA"
+                }
+              },
+              "nativeQueryRef": "Queda NASA"
+            },
+            {
+              "queryRef": "Estrelas.Sinal/ruído médio",
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Estrelas"
+                    }
+                  },
+                  "Property": "Sinal/ruído médio"
+                }
+              },
+              "nativeQueryRef": "Sinal/ruído médio",
+              "displayName": "Sinal/ruído"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Estrelas"
+                  }
+                },
+                "Property": "Período achado"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "columnHeaders": [
+        {
+          "properties": {
+            "columnAdjustment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'growToFit'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Resultado por estrela'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "position": {
+    "x": 16,
+    "y": 220,
+    "width": 800,
+    "height": 250,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json"
+}

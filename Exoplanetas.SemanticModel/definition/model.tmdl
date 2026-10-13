@@ -1,0 +1,19 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	discourageImplicitMeasures
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["Estrelas", "Curva bruta", "Curva sobreposta", "Busca do período", "Candidatos NASA", "CaminhoDados"]
+
+ref table Estrelas
+ref table 'Curva bruta'
+ref table 'Curva sobreposta'
+ref table 'Busca do período'
+ref table 'Candidatos NASA'
+

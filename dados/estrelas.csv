@@ -1,0 +1,5 @@
+estrela_id,estrela,alvo_mast,status_nasa,fonte_dados,setores,dias_observados,pontos,pontos_defeito,periodo_1a_rodada_dias,queda_1a_rodada_ppm,periodo_achado_dias,periodo_nasa_dias,duracao_achada_h,duracao_nasa_h,queda_achada_ppm,queda_nasa_ppm,sinal_ruido
+1,WASP-126,WASP-126,Confirmado,SPOC,1,27.9,18278,0,3.2884,2464,3.2885,3.2888,3.12,3.44,6453,7006,133.9
+2,TOI-7831,TIC 21355897,Candidato,TESS-SPOC,"39, 66",759.9,12488,0,5.3422,2040,5.3421,5.3428,6.84,6.69,2725,2323,30.5
+3,TOI-7814,TIC 279356,Candidato,QLP,92,26.7,10849,2186,14.1343,509509,3.5546,3.5576,3.48,4.25,6395,7336,120.7
+4,TOI-7817,TIC 155744976,Candidato,QLP,92,26.7,11241,1528,14.3799,7541,3.8802,3.8804,1.8,2.1,1488,1673,29.0

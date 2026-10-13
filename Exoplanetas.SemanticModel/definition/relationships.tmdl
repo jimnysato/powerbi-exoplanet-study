@@ -1,0 +1,11 @@
+relationship 5a54c724-2d0c-51df-8519-89ee27754236
+	fromColumn: 'Curva bruta'.estrela_id
+	toColumn: Estrelas.estrela_id
+
+relationship 6f04778b-83bb-54f8-bb75-236a6d7056c9
+	fromColumn: 'Curva sobreposta'.estrela_id
+	toColumn: Estrelas.estrela_id
+
+relationship 6f5cdc36-5205-5c0d-b3f4-1801f3feb87d
+	fromColumn: 'Busca do período'.estrela_id
+	toColumn: Estrelas.estrela_id

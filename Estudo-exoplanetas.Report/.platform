@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Estudo-exoplanetas"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "7f1d6e1e-91b9-46b5-9c06-d2fa436b51c3"
+  }
+}

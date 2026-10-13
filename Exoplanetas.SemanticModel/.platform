@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Exoplanetas"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "24d01f48-4931-515c-8f10-4e6d9c22f53b"
+  }
+}

@@ -1,0 +1,149 @@
+/// Lista completa de TOIs (TESS Objects of Interest) com o status atual na NASA.
+table 'Candidatos NASA'
+	lineageTag: 340af276-199f-5536-b099-a5aaf57ca9d7
+
+	measure 'TOIs na lista' = COUNTROWS ( 'Candidatos NASA' )
+		formatString: #,0
+		lineageTag: 9b10cd67-383d-52b0-ae79-9e6e5b0a49d6
+
+	measure 'Candidatos aguardando' = CALCULATE ( COUNTROWS ( 'Candidatos NASA' ), 'Candidatos NASA'[Status] = "Candidato" )
+		formatString: #,0
+		lineageTag: 8e9cedf4-9ac0-5f66-b2fe-c1bb14f45868
+
+	measure Confirmados = CALCULATE ( COUNTROWS ( 'Candidatos NASA' ), 'Candidatos NASA'[Status] = "Confirmado" )
+		formatString: #,0
+		lineageTag: 623c2b66-e745-59fe-8436-5783e2512d91
+
+	measure 'Falsos positivos' = CALCULATE ( COUNTROWS ( 'Candidatos NASA' ), 'Candidatos NASA'[Status] IN { "Falso positivo", "Alarme falso" } )
+		formatString: #,0
+		lineageTag: 05a51fd6-3b92-5c14-89b7-1ae6d9d4f5c7
+
+	measure 'Período médio (dias)' = AVERAGE ( 'Candidatos NASA'[Período (dias)] )
+		formatString: 0.00
+		lineageTag: 082083f4-8b25-5554-bd0d-dc1eace9fb97
+
+	measure 'Queda média (ppm)' = AVERAGE ( 'Candidatos NASA'[Queda (ppm)] )
+		formatString: #,0
+		lineageTag: f87820e3-7f4d-523b-9261-a1801213258e
+
+	measure 'Cor do candidato' = IF ( SELECTEDVALUE ( 'Candidatos NASA'[Testado por mim] ) = TRUE (), "#F6AD55", "#4A6A90" )
+		displayFolder: Cores
+		lineageTag: dee56aa5-7bf7-5459-8495-202b03ab0a8e
+
+	measure 'Tamanho do candidato' = IF ( SELECTEDVALUE ( 'Candidatos NASA'[Testado por mim] ) = TRUE (), 4, 1 )
+		formatString: 0
+		displayFolder: Cores
+		lineageTag: 72f78750-2cac-5a4f-bc5f-5b3874f16742
+
+	column TOI
+		dataType: double
+		formatString: 0.00
+		lineageTag: bc06442c-5c79-58f2-9335-becf22e1a062
+		summarizeBy: none
+		sourceColumn: TOI
+
+	column TIC
+		dataType: int64
+		formatString: 0
+		lineageTag: 3dc1b9f4-28c2-5a31-b53f-ee73650f039f
+		summarizeBy: none
+		sourceColumn: TIC
+
+	column Status
+		dataType: string
+		lineageTag: d40b9ebd-fbb6-50ef-b1d6-f7de06aa15b5
+		summarizeBy: none
+		sourceColumn: Status
+
+	column 'Período (dias)'
+		dataType: double
+		formatString: 0.00
+		lineageTag: 02ce1c95-593f-569b-a567-52d7fc75862f
+		summarizeBy: none
+		sourceColumn: Período (dias)
+
+	column 'Duração (h)'
+		dataType: double
+		formatString: 0.0
+		lineageTag: 45fb98ef-b156-542d-9bcb-fc988c8edb82
+		summarizeBy: none
+		sourceColumn: Duração (h)
+
+	column 'Queda (ppm)'
+		dataType: double
+		formatString: #,0
+		lineageTag: 107b8310-e20d-53bd-a729-9ef64fd16778
+		summarizeBy: none
+		sourceColumn: Queda (ppm)
+
+	column 'Raio (Terras)'
+		dataType: double
+		formatString: 0.0
+		lineageTag: cb87d73d-7832-510f-beb9-8514a44ff30f
+		summarizeBy: none
+		sourceColumn: Raio (Terras)
+
+	column 'Magnitude TESS'
+		dataType: double
+		formatString: 0.0
+		lineageTag: 9bb5826c-e817-5184-82eb-3f7a17e04374
+		summarizeBy: none
+		sourceColumn: Magnitude TESS
+
+	column 'Data de entrada na lista'
+		dataType: dateTime
+		formatString: dd/mm/yyyy
+		lineageTag: 37ef9929-6aac-5652-811b-980ef7a75a01
+		summarizeBy: none
+		sourceColumn: Data de entrada na lista
+		annotation UnderlyingDateTimeDataType = Date
+
+
+	column 'Testado por mim'
+		dataType: boolean
+		isHidden
+		lineageTag: 1d1cbaa6-4464-5861-b5e3-10d879ebe4f2
+		summarizeBy: none
+		sourceColumn: Testado por mim
+
+	column Destaque
+		dataType: string
+		lineageTag: 73682e51-247d-50d3-aa12-a78c790aca15
+		summarizeBy: none
+		sourceColumn: Destaque
+
+	column 'Destaque (EN)'
+		dataType: string
+		lineageTag: 16dcff25-5098-5820-9f65-1ecc46d277fc
+		summarizeBy: none
+		sourceColumn: Destaque (EN)
+
+	column 'Status (EN)'
+		dataType: string
+		lineageTag: b120c5fb-96ce-5574-bbb1-df0aaa422a40
+		summarizeBy: none
+		sourceColumn: Status (EN)
+
+	column 'Ano de entrada'
+		dataType: int64
+		formatString: 0
+		lineageTag: 0f7a104e-7a34-5e81-a6aa-6999239825d2
+		summarizeBy: none
+		sourceColumn: Ano de entrada
+
+	partition 'Candidatos NASA' = m
+		mode: import
+		source =
+				let
+				    Fonte = Csv.Document(File.Contents(CaminhoDados & "candidatos_nasa.csv"), [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]),
+				    Cabecalhos = Table.PromoteHeaders(Fonte, [PromoteAllScalars = true]),
+				    Nomes = Table.RenameColumns(Cabecalhos, {{"toi", "TOI"}, {"tic", "TIC"}, {"status", "Status"}, {"periodo_dias", "Período (dias)"}, {"duracao_h", "Duração (h)"}, {"queda_ppm", "Queda (ppm)"}, {"raio_terras", "Raio (Terras)"}, {"magnitude_tess", "Magnitude TESS"}, {"data_criacao", "Data de entrada na lista"}, {"testado_por_mim", "Testado por mim"}}),
+				    Tipos = Table.TransformColumnTypes(Nomes, {{"TOI", type number}, {"TIC", Int64.Type}, {"Status", type text}, {"Período (dias)", type number}, {"Duração (h)", type number}, {"Queda (ppm)", type number}, {"Raio (Terras)", type number}, {"Magnitude TESS", type number}, {"Data de entrada na lista", type date}, {"Testado por mim", type logical}}, "en-US"),
+				    Destaque = Table.AddColumn(Tipos, "Destaque", each if [Testado por mim] then "Testado neste estudo" else "Outros candidatos", type text),
+				    DestaqueEN = Table.AddColumn(Destaque, "Destaque (EN)", each if [Testado por mim] then "Tested in this study" else "Other candidates", type text),
+				    StatusEN = Table.AddColumn(DestaqueEN, "Status (EN)", each Record.FieldOrDefault([Candidato = "Candidate", #"Candidato ambíguo" = "Ambiguous candidate", Confirmado = "Confirmed", #"Já conhecido" = "Known planet", #"Falso positivo" = "False positive", #"Alarme falso" = "False alarm"], [Status], "Unclassified"), type text),
+				    Ano = Table.AddColumn(StatusEN, "Ano de entrada", each Date.Year([Data de entrada na lista]), Int64.Type)
+				in
+				    Ano
+
+	annotation PBI_ResultType = Table

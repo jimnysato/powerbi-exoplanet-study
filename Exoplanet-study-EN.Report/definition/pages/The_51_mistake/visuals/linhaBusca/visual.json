@@ -1,0 +1,126 @@
+{
+  "name": "linhaBusca",
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "queryRef": "Busca do período.Período testado (dias)",
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Busca do período"
+                    }
+                  },
+                  "Property": "Período testado (dias)"
+                }
+              },
+              "nativeQueryRef": "Período testado (dias)"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "queryRef": "Busca do período.Força final",
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Busca do período"
+                    }
+                  },
+                  "Property": "Força final"
+                }
+              },
+              "nativeQueryRef": "Força final",
+              "displayName": "Final run (cleaned)"
+            },
+            {
+              "queryRef": "Busca do período.Força 1ª rodada",
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "Busca do período"
+                    }
+                  },
+                  "Property": "Força 1ª rodada"
+                }
+              },
+              "nativeQueryRef": "Força 1ª rodada",
+              "displayName": "1st run (raw)"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Measure": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Busca do período"
+                  }
+                },
+                "Property": "Força 1ª rodada"
+              }
+            },
+            "direction": "Descending"
+          }
+        ],
+        "isDefaultSort": true
+      }
+    },
+    "objects": {},
+    "drillFilterOtherVisuals": true,
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Period search: the wrong peak and the right one'"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "subTitle": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "position": {
+    "x": 16,
+    "y": 490,
+    "width": 1248,
+    "height": 214,
+    "z": 0,
+    "tabOrder": 0
+  },
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.9.0/schema.json"
+}
