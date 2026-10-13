@@ -32,7 +32,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Página oculta: aparece no Power BI Desktop e para quem edita no Service; não aparece para quem só visualiza. Atualizada em 10/13/2026 — ao alterar o BI, registre aqui a regra e a data.",
+                    "value": "Hidden page: visible in Power BI Desktop and to editors in the Service; not shown to viewers. Updated on 10/13/2026 — when changing the report, record the rule and the date here.",
                     "textStyle": {
                       "fontFamily": "Arial",
                       "fontSize": "11pt",

@@ -42,7 +42,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "•  A news item about a non-astronomer finding an exoplanet candidate with Claude Code; test reproduced on WASP-126 and 3 TOIs, basis for a LinkedIn post.",
+                    "value": "•  A Reddit post about a planet candidate found with Claude Code in TESS data; test reproduced on WASP-126 and 3 TOIs, basis for a LinkedIn post.",
                     "textStyle": {
                       "fontFamily": "Arial",
                       "fontSize": "11pt",
@@ -90,6 +90,41 @@
                 "textRuns": [
                   {
                     "value": "•  Method tuned to match the post: 0.05–0.3 day duration grid and strict quality filter on the final run.",
+                    "textStyle": {
+                      "fontFamily": "Arial",
+                      "fontSize": "11pt",
+                      "color": "#1F2937"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "",
+                    "textStyle": {
+                      "fontSize": "6pt"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "10/13/2026 — Correction",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontFamily": "Arial",
+                      "fontSize": "13pt",
+                      "color": "#000054"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "•  The description of the original post said its author had no astronomy background; the post does not say that. Fixed here, in the README, on the website and in the LinkedIn post before publishing.",
                     "textStyle": {
                       "fontFamily": "Arial",
                       "fontSize": "11pt",

@@ -42,7 +42,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "•  Radar de novidades trouxe o relato de um leigo que achou um candidato a exoplaneta com o Claude Code; teste reproduzido em WASP-126 e 3 TOIs, base do post no LinkedIn.",
+                    "value": "•  Radar de novidades trouxe um post do Reddit sobre um candidato a planeta achado com o Claude Code em dados do TESS; teste reproduzido em WASP-126 e 3 TOIs, base do post no LinkedIn.",
                     "textStyle": {
                       "fontFamily": "Arial",
                       "fontSize": "11pt",
@@ -90,6 +90,41 @@
                 "textRuns": [
                   {
                     "value": "•  Ajuste de métodos para bater com o post: faixa de duração 0,05–0,3 dia e filtro de qualidade rigoroso na rodada final.",
+                    "textStyle": {
+                      "fontFamily": "Arial",
+                      "fontSize": "11pt",
+                      "color": "#1F2937"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "",
+                    "textStyle": {
+                      "fontSize": "6pt"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "13/10/2026 — Correção",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontFamily": "Arial",
+                      "fontSize": "13pt",
+                      "color": "#000054"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "•  A descrição do post original dizia que o autor era leigo em astronomia; o post não diz isso. Corrigido aqui, no README, no site e no post do LinkedIn antes de publicar.",
                     "textStyle": {
                       "fontFamily": "Arial",
                       "fontSize": "11pt",
